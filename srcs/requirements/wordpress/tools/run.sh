@@ -12,7 +12,7 @@ sleep 5
 
 wp core install		--allow-root \
 			--url=$WP_URL \
-			--title=$WP_TITLE \
+			--title="migo's site" \
 			--admin_user=$WP_ADMIN_NAME \
 			--admin_email=$WP_ADMIN_EMAIL \
 			--admin_password=$WP_ADMIN_PASSWORD \
