@@ -11,7 +11,7 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
-    build: ./requirement/mariadb
+    build: ./requirements/mariadb
     restart: always
     ports:
       - "3306:3306"
@@ -24,7 +24,7 @@ services:
 
   wordpress:
     container_name: wordpress
-    build: ./requirement/wordpress
+    build: ./requirements/wordpress
     restart: always
     depends_on:
       - mariadb
