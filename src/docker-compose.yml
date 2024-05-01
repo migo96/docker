@@ -1,0 +1,55 @@
+version: '3.8'
+
+networks:
+  intra:
+    driver: bridge
+
+volumes:
+  mariadb: {}
+  wordpress: {}
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - intra
+    volumes:
+      - mariadb:/var/lib/mysql
+    env_file:
+      - .env
+
+  wordpress:
+    container_name: wordpress
+    build: ./wordpress
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "9000:9000"
+    networks:
+      - intra
+    volumes:
+      - wordpress:/var/lib/wordpress
+    env_file:
+      - .env
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    restart: always
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    expose:
+      - "9000"
+    networks:
+      - intra
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
